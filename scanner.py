@@ -8,13 +8,13 @@ import sys
 # [renglon, columna] = [estado, transicion]
 # Estados > 99 son finales (ACEPTORES)
 # Caso especial: Estado 200 = ERROR
-#      dig   op   (    )  raro  esp  .   $  A-Z_
-MT = [[  1, 102, 105, 106,   4,   0, 4, 107,   5], # edo 0 - estado inicial
-      [  1, 100, 100, 100, 100, 100, 2, 100,   4], # edo 1 - digitos enteros
-      [  3, 200, 200, 200,   4, 200, 4, 200,   4], # edo 2 - primer decimal flotante
-      [  3, 101, 101, 101, 101, 101, 4, 101,   4], # edo 3 - decimales restantes flotante
-      [200, 200, 200, 200,   4, 200, 4, 200, 200], # edo 4 - estado de error
-      [  4, 108, 108, 108,   4, 108, 4,   4,   5]] # edo 5 - identificadores con A-Z o _
+#      dig   op   (    )  raro  esp  .   $   A-Z   _
+MT = [[  1, 102, 105, 106,   4,   0, 4, 107,   5,   4], # edo 0 - estado inicial
+      [  1, 100, 100, 100, 100, 100, 2, 100,   4,   4], # edo 1 - digitos enteros
+      [  3, 200, 200, 200,   4, 200, 4, 200,   4,   4], # edo 2 - primer decimal flotante
+      [  3, 101, 101, 101, 101, 101, 4, 101,   4,   4], # edo 3 - decimales restantes flotante
+      [200, 200, 200, 200,   4, 200, 4, 200, 200,   4], # edo 4 - estado de error
+      [  5, 108, 108, 108,   4, 108, 4,   4,   5,   5]] # edo 5 - identificadores con A-Z o _
 
 # Filtro de caracteres: regresa el numero de columna de la matriz de transiciones
 # de acuerdo al caracter dado
@@ -43,8 +43,10 @@ def filtro(c):
          c == 'M' or c == 'N' or c == 'O' or c == 'P' or \
          c == 'Q' or c == 'R' or c == 'S' or c == 'T' or \
          c == 'U' or c == 'V' or c == 'W' or c == 'X' or \
-         c == 'Y' or c == 'Z' or c == '_' :
+         c == 'Y' or c == 'Z':
         return 8
+	elif c == '_':
+		return 9
     else: # caracter raro
         return 4
 
