@@ -45,8 +45,8 @@ def filtro(c):
          c == 'U' or c == 'V' or c == 'W' or c == 'X' or \
          c == 'Y' or c == 'Z':
         return 8
-	elif c == '_':
-		return 9
+    elif c == '_':
+        return 9
     else: # caracter raro
         return 4
 
