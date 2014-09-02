@@ -1,5 +1,5 @@
 # Jose Alberto Esquivel A01139626
-# Eduardo Sanchez A
+# Eduardo Sanchez A01195815
 # Implementacion de un parser
 # Reconoce expresiones mediante la gramatica:
 # EXP -> EXP op EXP | EXP -> (EXP) | cte
