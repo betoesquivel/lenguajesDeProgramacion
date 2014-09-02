@@ -47,8 +47,6 @@ def exp():
     else:
         func()
         exp1()
-        print "\nError: se esperaba CTE o ("
-        sys.exit(1)
 
 # Modulo auxiliar para reconocimiento de expresiones
 def exp1():
