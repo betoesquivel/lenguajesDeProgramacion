@@ -41,6 +41,7 @@ def exp():
         exp()
         if token == ')':
             match(token)
+            exp1()
         else:
             print "\nError: se esperaba )"
             sys.exit(1)
