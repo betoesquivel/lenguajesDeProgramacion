@@ -1,7 +1,7 @@
 # Implementacion de un parser
 # Reconoce expresiones mediante la gramatica:
 # EXP -> EXP op EXP | EXP -> (EXP) | cte
-# la cual fue modificada para eliminar ambigüedad a:
+# la cual fue modificada para eliminar ambiguedad a:
 # EXP  -> cte EXP1
 # EXP1 -> (EXP) EXP1 | op EXP EXP1 | vacio
 #
@@ -39,7 +39,14 @@ def exp():
     elif token == '(':
         match(token) # reconoce Delimitador (
         exp()
+        if token == ')':
+            match(token)
+        else:
+            print "\nError: se esperaba )"
+            sys.exit(1)
     else:
+        func()
+        exp1()
         print "\nError: se esperaba CTE o ("
         sys.exit(1)
 
@@ -51,7 +58,32 @@ def exp1():
         exp()
         exp1()
 
-# Modulo auxiliar para reconocimiento de funciones
 def func():
-    .
+    global token
+    if token == 'F':
+        match(token)
+        if token == '(':
+            match(token)
+            A()
+        else:
+            print "\nError: se esperaba ("
+            sys.exit(1)
+    else:
+        print "\nError: se esperaba F"
+        sys.exit(1)
 
+def A():
+    exp()
+    B()
+
+def B():
+    if token == ',':
+        match(token)
+        A()
+    elif token == ')':
+        match(token)
+    else:
+        print "\nError: se esperaba , o )"
+        sys.exit(1)
+
+parser()
