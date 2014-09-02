@@ -1,9 +1,9 @@
-# Implementación de un parser
-# Reconoce expresiones mediante la gramática:
+# Implementacion de un parser
+# Reconoce expresiones mediante la gramatica:
 # EXP -> EXP op EXP | EXP -> (EXP) | cte
-# la cual fué modificada para eliminar ambigüedad a:
+# la cual fue modificada para eliminar ambigüedad a:
 # EXP  -> cte EXP1
-# EXP1 -> (EXP) EXP1 | op EXP EXP1 | vacío
+# EXP1 -> (EXP) EXP1 | op EXP EXP1 | vacio
 #
 # Autor: Dr. Santiago Conant, Agosto 2014
 
@@ -19,18 +19,18 @@ def match(tokenEsperado):
         print "Error: se esperaba " + tokenEsperado
         sys.exit(1)
 
-# Función principal: implementa el análisis sintáctico
+# Funcion principal: implementa el analisis sintactico
 def parser():
-    global token 
+    global token
     token = sys.stdin.read(1) # inicializa con el primer token
     sys.stdout.write(token)
     exp()
     if token == '\n':
-        print "Expresión bien construida"
+        print "Expresion bien construida"
     else:
-        print "\nExpresión mal construida"
+        print "\nExpresion mal construida"
 
-# Módulo que reconoce expresiones
+# Modulo que reconoce expresiones
 def exp():
     global token
     if token == '0':
@@ -43,12 +43,15 @@ def exp():
         print "\nError: se esperaba CTE o ("
         sys.exit(1)
 
-# Módulo auxiliar para reconocimiento de expresiones
+# Modulo auxiliar para reconocimiento de expresiones
 def exp1():
     global token
     if token == '+':
         match(token) # reconoce operador
         exp()
         exp1()
-    
-        
+
+# Modulo auxiliar para reconocimiento de funciones
+def func():
+    .
+
