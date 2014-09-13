@@ -7,6 +7,15 @@
 #<lista> ::= ( <elemento> )
 #<elemento> ::= <exp> <elemento> | vacio
 #
+# P -> E $
+# E -> simbolo E'
+# E -> num E'
+# E ->  bool E’
+# E -> string
+# E -> ( E ) E'
+# E' -> E E'
+# E' -> ø
+# autor de gramatica: Gustavo Ferrufino
 # Autor: Dr. Santiago Conant, Agosto 2014
 
 import sys
@@ -25,9 +34,10 @@ def match(tokenEsperado):
     global token
     global tokenList
     if token == tokenEsperado:
-        tokenList.pop(0)
         if(tokenList):
-            token = tokenList[0] # token = caracter
+            tokenList.pop(0)
+            if(tokenList):
+                token = tokenList[0] # token = caracter
     else:
         print "Error: se esperaba " + tokenEsperado
         sys.exit(1)
@@ -37,12 +47,14 @@ def parser(listOfTokens):
     global token
     global tokenList
     tokenList = listOfTokens
+    print tokenList
     token = tokenList[0] # inicializa con el primer token
     prog()
-    if not tokenList or tokenList(0) == eof:
+    if not tokenList or tokenList[0] == eof:
         print "Expresion bien construida"
     else:
         print "\nExpresion mal construida"
+        print tokenList
 
 def prog():
     global token
@@ -62,7 +74,7 @@ def exp():
         match(booleano)
     elif token == string:
         match(string)
-    elif token == parIzq:
+    else:
         lista()
 
 def lista():
@@ -70,17 +82,21 @@ def lista():
     if token == parIzq:
         match(parIzq)
         elemento()
-        match(parDer)
+        if token == parDer:
+            match(parDer)
+        else:
+            print ("Error: Se esperaba parentesis derecho")
+            sys.exit()
     else:
-        print ("Error: Se esperaba parentesis izquierdo")
+        print ("Error: Se esperaba parentesis izquierdo o un atomo")
+        sys.exit()
 
 def elemento():
     global token
-    global tokenList
-
-    if not tokenList:
-        print ("Legal")
-        sys.exit()
-    else:
+    if (token == parenIzq or\
+        token == simbolo or \
+        token == numero or \
+        token == booleano or \
+        token == string):
         exp()
         elemento()
