@@ -1,22 +1,13 @@
 # Jose Alberto Esquivel A01139626
 # Eduardo Sanchez A01195815
 # Implementacion de un parser
+
 #EBNF: Gramatica simplificada
 #<prog> ::= <exp> <prog> | $
 #<exp> ::= simbolo | numero | booleano | string | <lista>
 #<lista> ::= ( <elemento> )
 #<elemento> ::= <exp> <elemento> | vacio
 #
-# P -> E $
-# E -> simbolo E'
-# E -> num E'
-# E ->  bool E’
-# E -> string
-# E -> ( E ) E'
-# E' -> E E'
-# E' -> ø
-# autor de gramatica: Gustavo Ferrufino
-# Autor: Dr. Santiago Conant, Agosto 2014
 
 import sys
 
@@ -39,7 +30,7 @@ def match(tokenEsperado):
             if(tokenList):
                 token = tokenList[0] # token = caracter
     else:
-        print "Error: se esperaba " + tokenEsperado
+        print ">ERROR SINTACTICO<"
         sys.exit(1)
 
 # Funcion principal: implementa el analisis sintactico
@@ -51,13 +42,14 @@ def parser(listOfTokens):
     token = tokenList[0] # inicializa con el primer token
     prog()
     if not tokenList or tokenList[0] == eof:
-        print "Expresion bien construida"
+        print ">ENTRADA CORRECTA<"
     else:
-        print "\nExpresion mal construida"
+        print ">ERROR SINTACTICO<"
         print tokenList
 
 def prog():
     global token
+    print "[PROG]"
     if token != eof:
         exp()
         prog()
@@ -66,6 +58,7 @@ def prog():
 
 def exp():
     global token
+    print "[EXP]"
     if token == simbolo:
         match(simbolo)
     elif token == numero:
@@ -79,20 +72,22 @@ def exp():
 
 def lista():
     global token
+    print "[LISTA]"
     if token == parIzq:
         match(parIzq)
         elemento()
         if token == parDer:
             match(parDer)
         else:
-            print ("Error: Se esperaba parentesis derecho")
+            print (">ERROR SINTACTICO<")
             sys.exit()
     else:
-        print ("Error: Se esperaba parentesis izquierdo o un atomo")
+        print (">ERROR SINTACTICO<")
         sys.exit()
 
 def elemento():
     global token
+    print "[ELEMENTO]"
     if (token == parenIzq or\
         token == simbolo or \
         token == numero or \

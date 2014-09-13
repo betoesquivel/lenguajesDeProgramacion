@@ -71,38 +71,39 @@ def scanner():
             edo = MT[edo][filtro(c)]
             if edo != 0: lexema += c
         if   edo == 100:      # Token 100
-            #print '(' + lexema
+            print lexema + "(PARENIZQ)"
             lexemas.append(100)
         elif edo == 101:    # Token 101
-            #print ')' + lexema
+            print lexema + "(PARENDER)"
             lexemas.append(101)
         elif edo == 102:    # Token 102
             lexema = lexema[:-1] # elimina el delimitador
             leer = False
-            #print "<simbolo> " + lexema
+            print lexema + "(SIMBOLO)"
             lexemas.append(102)
         elif edo == 103:    # Token 103
             lexema = lexema[:-1] # elimina el delimitador
             leer = False
-            #print "<numero> " + lexema
+            print lexema + "(NUMERO)"
             lexemas.append(103)
         elif edo == 104:    # Token 104
-            #print "<string> " + lexema
+            print lexema + "(STRING)"
             lexemas.append(104)
         elif edo == 105:    # Token 105
-            #print "<boolean> " + lexema
+            print lexema + "(BOOLEAN)"
             lexemas.append(105)
         elif edo == 106:    # Token 106
             return lexemas        # Termina analisis
         elif edo == 110:    # Token 110
             lexema = lexema[:-1] # elimina el delimitador
             leer = False
-            #print "<comentario> " + lexema
+            print lexema + "(COMENTARIO)"
             lexemas.append(110)
         elif edo == 200:    # ERROR
             lexema = lexema[:-1] # el ultimo caracter no es raro
             leer = False
-            print "ERROR! palabra ilegal " + lexema
+            print ">ERROR SINTACTICO<"
+            sys.exit()
             return -1
         lexema = ""
         edo = 0
